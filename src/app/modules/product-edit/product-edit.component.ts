@@ -35,7 +35,7 @@ ngOnInit(): void {
   this.prodForm.patchValue(this.data);
 }
 getEtiquetas() {
-  return  this.prodForm.get('etiquetas')?.value;
+  return  this.prodForm.get('etiquetas')?.value ?? [];
 }
 
 
@@ -45,8 +45,8 @@ habilitarCampoEtiqueta(){
 
 addEtiqueta(){
   let nueva = this.prodForm.get('nuevaEtiquetaValue')!.value;
-  const items = this.prodForm.get('etiquetas') as FormArray;
-  this.prodForm.get('etiquetas')?.patchValue([...items.value, nueva]);
+  let items = this.prodForm.get('etiquetas') as FormArray;
+  this.prodForm.get('etiquetas')?.patchValue([...items.value ?? [], nueva]);
   this.prodForm.get('nuevaEtiquetaValue')!.setValue('');
 }
 

@@ -1,20 +1,10 @@
-<!-- <ul class="products">
-  <li *ngFor="let product of products">
-    <a routerLink="/detail/{{product._id}}">
-      <span class="badge">{{product._id}}</span> {{product.nombre}}
-    </a>
-  </li>
-</ul>
-
-<div>
-  <label for="new-product">Product name: </label>
-  <input id="new-product" #productName /> -->
-
-<!-- (click) passes input value to add() and then clears the input -->
-<!-- <button type="button" class="add-button" (click)="add(productName.value); productName.value=''">
-    Add product
+<div class="row">
+  <span class="example-spacer"></span>
+  <button mat-raised-button (click)="openAddEditProdForm()">
+    Agregar producto
   </button>
-</div> -->
+</div>
+
 <div class="mat-elevation-z8">
   <table mat-table [dataSource]="dataSource" matSort>
     <!-- ID Column -->

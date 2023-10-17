@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, Inject, Input, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, Inject, Input, OnInit } from '@angular/core';
 import { Product } from '../../core/models/product';
 import { ProductService } from 'src/app/core/services/product.service';
 import { MatTableDataSource } from '@angular/material/table';
@@ -29,18 +29,7 @@ export class ProductsComponent implements OnInit {
     this.productService.getProducts().subscribe((products) => {
       this.products = products;
       this.dataSource = new MatTableDataSource<Product>(products);
-
-
     });
-  }
-
-  add(nombre: string): void {
-    nombre = nombre.trim();
-    if (!nombre) { return; }
-    this.productService.addProduct({ nombre } as Product)
-      .subscribe(product => {
-        this.products.push(product);
-      });
   }
 
   delete(product: Product): void {
@@ -57,6 +46,16 @@ export class ProductsComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed');
+    });
+  }
+  openAddEditProdForm() {
+    const dialogRef = this.dialog.open(ProductEditComponent);
+    dialogRef.afterClosed().subscribe({
+      next: (val) => {
+        if (val) {
+          this.getProducts();
+        }
+      },
     });
   }
 
