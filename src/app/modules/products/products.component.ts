@@ -1,7 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, Inject, Input, OnInit, ViewChild } from '@angular/core';
 import { Product } from '../../core/models/product';
 import { ProductService } from 'src/app/core/services/product.service';
-
+import { MatTableDataSource } from '@angular/material/table';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatDialog, MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-products',
@@ -10,15 +12,25 @@ import { ProductService } from 'src/app/core/services/product.service';
 })
 export class ProductsComponent implements OnInit {
 
-  constructor(private productService: ProductService) {}
-  products : Product[] = [];
+  constructor(private productService: ProductService, public dialog: MatDialog) { }
+
+  @Input() input?: string;
+
+  products: Product[] = [];
+  displayedColumns: string[] = ['id', 'nombre', 'stock', 'descripcion', 'imagen', 'sku', 'etiquetas', 'action',];
+  dataSource = new MatTableDataSource<Product>([]);
 
   ngOnInit(): void {
     this.getProducts();
   }
 
   getProducts(): void {
-    this.productService.getProducts().subscribe(products => this.products = products);
+    this.productService.getProducts().subscribe((products) => {
+      this.products = products;
+      this.dataSource = new MatTableDataSource<Product>(products);
+
+
+    });
   }
 
   add(nombre: string): void {
@@ -34,6 +46,44 @@ export class ProductsComponent implements OnInit {
     this.products = this.products.filter(p => p !== product);
     this.productService.deleteProduct(product._id).subscribe();
   }
-} 
+
+  openImage(data: Product) {
+    const dialogRef = this.dialog.open(DialogOverviewExampleDialog, {
+      height: '800px',
+      width: '800px',
+      data: data.imagen,
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+    });
+  }
+
+  openEditForm(data: Product) {
+    const dialogRef = this.dialog.open(DialogOverviewExampleDialog, {
+      height: '800px',
+      width: '800px',
+      data: data.imagen,
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+    });
+  }
+}
 
 
+@Component({
+  selector: 'dialog-overview-example-dialog',
+  templateUrl: './dialog-overview-example-dialog.html',
+})
+export class DialogOverviewExampleDialog {
+  constructor(
+    public dialogRef: MatDialogRef<DialogOverviewExampleDialog>,
+    @Inject(MAT_DIALOG_DATA) public data: string,
+  ) { }
+
+  onNoClick(): void {
+    this.dialogRef.close();
+  }
+}

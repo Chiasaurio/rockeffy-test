@@ -11,7 +11,7 @@ label {
   input {
     padding: .5rem;
     width: 100%;
-    max-width: 600px;
+    /* max-width: 600px; */
     box-sizing: border-box;
     display: block;
   }
@@ -45,3 +45,8 @@ label {
     margin-top: 0;
     padding-left: 0;
   }
+
+  mat-form-field {
+    width: 100%;
+  }
+  

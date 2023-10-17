@@ -7,8 +7,8 @@ import { ProductDetailComponent } from './product-detail/product-detail.componen
 
 const routes: Routes = [
   { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
-  { path: 'dashboard', component: DashboardComponent },
-  { path: 'products', component: ProductsComponent },
+  // { path: 'dashboard', component: DashboardComponent },
+  // { path: 'products', component: ProductsComponent },
   { path: 'detail/:id', component: ProductDetailComponent },
 ];
 

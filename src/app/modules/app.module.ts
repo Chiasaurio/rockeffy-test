@@ -14,6 +14,7 @@ import { HttpInterceptorService } from '../core/services/http-interceptor.servic
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { TopbarComponent } from './topbar/topbar.component';
 
+import { MaterialModule } from './material.module';
 @NgModule({
   declarations: [
     AppComponent,
@@ -21,8 +22,8 @@ import { TopbarComponent } from './topbar/topbar.component';
     ProductDetailComponent,
     MessagesComponent,
     DashboardComponent,
-    ProductSearchComponent,
-    
+    TopbarComponent,
+    ProductSearchComponent
   ],
   imports: [
     FormsModule,
@@ -30,7 +31,7 @@ import { TopbarComponent } from './topbar/topbar.component';
     AppRoutingModule,
     HttpClientModule,
     BrowserAnimationsModule,
-    TopbarComponent
+    MaterialModule,
   ],
   providers: [
     {

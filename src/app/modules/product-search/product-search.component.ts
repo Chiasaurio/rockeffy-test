@@ -1,24 +1,20 @@
 import { Component, OnInit } from '@angular/core';
-
 import { Observable, Subject } from 'rxjs';
-
-import {
-   debounceTime, distinctUntilChanged, switchMap
- } from 'rxjs/operators';
-
+import {  debounceTime, distinctUntilChanged, switchMap} from 'rxjs/operators';
 import { Product } from 'src/app/core/models/product';
 import { ProductService } from 'src/app/core/services/product.service';
 
 @Component({
   selector: 'app-product-search',
   templateUrl: './product-search.component.html',
-  styleUrls: ['./product-search.component.css']
+  styleUrls: ['./product-search.component.css'],
+
 })
 export class ProductSearchComponent implements OnInit {
   products$!: Observable<Product[]>;
   private searchTerms = new Subject<string>();
 
-  constructor(private productService: ProductService) {}
+  constructor(private productService: ProductService) { }
 
   // Push a search term into the observable stream.
   search(term: string): void {
