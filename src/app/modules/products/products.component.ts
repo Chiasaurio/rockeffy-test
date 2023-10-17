@@ -21,10 +21,10 @@ export class ProductsComponent implements OnInit {
     this.productService.getProducts().subscribe(products => this.products = products);
   }
 
-  add(name: string): void {
-    name = name.trim();
-    if (!name) { return; }
-    this.productService.addProduct({ name } as Product)
+  add(nombre: string): void {
+    nombre = nombre.trim();
+    if (!nombre) { return; }
+    this.productService.addProduct({ nombre } as Product)
       .subscribe(product => {
         this.products.push(product);
       });
@@ -32,7 +32,7 @@ export class ProductsComponent implements OnInit {
 
   delete(product: Product): void {
     this.products = this.products.filter(p => p !== product);
-    this.productService.deleteProduct(product.id).subscribe();
+    this.productService.deleteProduct(product._id).subscribe();
   }
 } 
 

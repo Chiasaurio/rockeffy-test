@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms'; 
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 
 import { AppComponent } from './app.component';
@@ -10,6 +10,9 @@ import { ProductDetailComponent } from './product-detail/product-detail.componen
 import { MessagesComponent } from './messages/messages.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { ProductSearchComponent } from './product-search/product-search.component';
+import { HttpInterceptorService } from '../core/services/http-interceptor.service';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { TopbarComponent } from './topbar/topbar.component';
 
 @NgModule({
   declarations: [
@@ -18,15 +21,24 @@ import { ProductSearchComponent } from './product-search/product-search.componen
     ProductDetailComponent,
     MessagesComponent,
     DashboardComponent,
-    ProductSearchComponent
+    ProductSearchComponent,
+    
   ],
   imports: [
     FormsModule,
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
+    BrowserAnimationsModule,
+    TopbarComponent
   ],
-  providers: [],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: HttpInterceptorService,
+      multi: true,
+    },
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

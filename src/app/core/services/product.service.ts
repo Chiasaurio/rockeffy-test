@@ -28,7 +28,7 @@ export class ProductService {
   }
 
   /** GET product by id. Will 404 if id not found */
-  getProduct(id: number): Observable<Product> {
+  getProduct(id: string): Observable<Product> {
     const url = `${this.productsUrl}/${id}`;
     return this.http.get<Product>(url).pipe(
       tap(_ => this.log(`fetched hero id=${id}`)),
@@ -44,21 +44,21 @@ export class ProductService {
   /** PUT: update the hero on the server */
   updateProduct(product: Product): Observable<any> {
     return this.http.put(this.productsUrl, product, this.httpOptions).pipe(
-      tap(_ => this.log(`updated product id=${product.id}`)),
+      tap(_ => this.log(`updated product id=${product._id}`)),
       catchError(this.handleError<any>('updateProduct'))
     );
   }
 
   /** POST: add a new product to the server */
-  addProduct(hero: Product): Observable<Product> {
-    return this.http.post<Product>(this.productsUrl, hero, this.httpOptions).pipe(
-      tap((newProduct: Product) => this.log(`added product w/ id=${newProduct.id}`)),
+  addProduct(product: Product): Observable<Product> {
+    return this.http.post<Product>(this.productsUrl, product, this.httpOptions).pipe(
+      tap((newProduct: Product) => this.log(`added product w/ id=${newProduct._id}`)),
       catchError(this.handleError<Product>('addProduct'))
     );
   }
 
   /** DELETE: delete the product from the server */
-  deleteProduct(id: number): Observable<Product> {
+  deleteProduct(id: string): Observable<Product> {
     const url = `${this.productsUrl}/${id}`;
 
     return this.http.delete<Product>(url, this.httpOptions).pipe(

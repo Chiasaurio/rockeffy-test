@@ -19,13 +19,15 @@ export class ProductDetailComponent {
   product?: Product;
 
   ngOnInit(): void {
-    this.getHero();
+    this.getProduct();
   }
-  getHero(): void {
-    const id = Number(this.route.snapshot.paramMap.get('id'));
+
+  getProduct(): void {
+    const id = String(this.route.snapshot.paramMap.get('id'));
     this.productService.getProduct(id)
       .subscribe(product => this.product = product);
   }
+  
   goBack(): void {
     this.location.back();
   }
