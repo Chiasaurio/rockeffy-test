@@ -31,7 +31,7 @@ export class ProductService {
   getProduct(id: string): Observable<Product> {
     const url = `${this.productsUrl}/${id}`;
     return this.http.get<Product>(url).pipe(
-      tap(_ => this.log(`fetched hero id=${id}`)),
+      tap(_ => this.log(`fetched product id=${id}`)),
       catchError(this.handleError<Product>(`getProduct id=${id}`))
     );
   }
@@ -40,13 +40,20 @@ export class ProductService {
     this.messageService.add(`ProductService: ${message}`);
   }
 
+  private snackBar(message: string) {
+    this.messageService.openSnackBar(`${message}`, 'Ok');
+  }
+
 
   /** PUT: update the hero on the server */
   updateProduct(product: Product): Observable<any> {
     const url = `${this.productsUrl}/${product._id}`;
     console.log(product);
     return this.http.put(url, product, this.httpOptions).pipe(
-      tap(_ => this.log(`updated product id=${product._id}`)),
+      tap(_ => {
+        this.log(`updated product id=${product._id}`);
+        this.snackBar('Producto actualizado con exito');
+      }),
       catchError(this.handleError<any>('updateProduct'))
     );
   }
@@ -55,7 +62,10 @@ export class ProductService {
   addProduct(product: Product): Observable<Product> {
     const { _id, ...productWithoutID } = product;
     return this.http.post<Product>(this.productsUrl, productWithoutID, this.httpOptions).pipe(
-      tap((newProduct: Product) => this.log(`added product w/ id=${newProduct._id}`)),
+      tap((newProduct: Product) => {
+        this.log(`added product w/ id=${newProduct._id}`);
+        this.snackBar('Producto registrado con exito');
+      }),
       catchError(this.handleError<Product>('addProduct'))
     );
   }
@@ -65,17 +75,16 @@ export class ProductService {
     const url = `${this.productsUrl}/${id}`;
 
     return this.http.delete<Product>(url, this.httpOptions).pipe(
-      tap(_ => this.log(`deleted product id=${id}`)),
+      tap(_ => {
+        this.log(`deleted product id=${id}`);
+        this.snackBar('Producto eliminado con exito');
+      }),
       catchError(this.handleError<Product>('deleteProduct'))
     );
   }
 
   /* GET products whose name contains search term */
   searchProducts(term: string): Observable<Product[]> {
-    if (!term.trim()) {
-      // if not search term, return empty hero array.
-      return of([]);
-    }
     return this.http.get<Product[]>(`${this.productsUrl}/?name=${term}`).pipe(
       tap(x => x.length ?
         this.log(`found products matching "${term}"`) :

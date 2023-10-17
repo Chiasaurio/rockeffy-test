@@ -6,7 +6,6 @@ import { AppRoutingModule } from './app-routing.module';
 
 import { AppComponent } from './app.component';
 import { ProductsComponent } from './products/products.component';
-import { ProductDetailComponent } from './product-detail/product-detail.component';
 import { MessagesComponent } from './messages/messages.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { ProductSearchComponent } from './product-search/product-search.component';
@@ -15,16 +14,16 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { TopbarComponent } from './topbar/topbar.component';
 import { MaterialModule } from './material.module';
 import { ProductEditComponent } from './product-edit/product-edit.component';
+
 @NgModule({
   declarations: [
     AppComponent,
     ProductsComponent,
-    ProductDetailComponent,
     MessagesComponent,
     DashboardComponent,
     TopbarComponent,
     ProductSearchComponent,
-    ProductEditComponent
+    ProductEditComponent,
   ],
   imports: [
     FormsModule,

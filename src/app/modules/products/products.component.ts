@@ -5,6 +5,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatDialog, MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { ProductEditComponent } from '../product-edit/product-edit.component';
+import { ShareDataProductsService } from 'src/app/core/services/share-data-products.service';
 
 @Component({
   selector: 'app-products',
@@ -13,16 +14,28 @@ import { ProductEditComponent } from '../product-edit/product-edit.component';
 })
 export class ProductsComponent implements OnInit {
 
-  constructor(private productService: ProductService, public dialog: MatDialog) { }
+  constructor(private productService: ProductService, private sharedDataService: ShareDataProductsService, public dialog: MatDialog) { }
 
   @Input() input?: string;
 
   products: Product[] = [];
   displayedColumns: string[] = ['id', 'nombre', 'stock', 'descripcion', 'imagen', 'sku', 'etiquetas', 'action',];
   dataSource = new MatTableDataSource<Product>([]);
+  searchText: string = '';
 
   ngOnInit(): void {
+    this.sharedDataService.getProducts().subscribe((products) => {
+      this.products = products;
+      // Update the MatTableDataSource with the new products if needed
+      this.dataSource = new MatTableDataSource<Product>(products);
+    });
+
+    // Initialize or fetch the products from the shared service
     this.getProducts();
+  }
+
+  updateFilter(searchText: string): void {
+    this.searchText = searchText;
   }
 
   getProducts(): void {
@@ -67,7 +80,7 @@ export class ProductsComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe({
       next: () => {
-          this.getProducts();
+        this.getProducts();
       },
     });
   }

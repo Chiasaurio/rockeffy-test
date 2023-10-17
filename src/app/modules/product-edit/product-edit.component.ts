@@ -57,7 +57,6 @@ onFormSubmit() {
         .updateProduct(this.prodForm.value)
         .subscribe({
           next: (val: any) => {
-            // this._coreService.openSnackBar('Employee detail updated!');
             this.dialogRef.close(true);
           },
           error: (err: any) => {
@@ -67,7 +66,6 @@ onFormSubmit() {
     } else {
       this.productService.addProduct(this.prodForm.value).subscribe({
         next: (val: any) => {
-          // this._coreService.openSnackBar('Employee added successfully');
           this.dialogRef.close(true);
         },
         error: (err: any) => {
