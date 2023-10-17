@@ -47,7 +47,9 @@ export class ProductsComponent implements OnInit {
 
   delete(product: Product): void {
     this.products = this.products.filter(p => p !== product);
-    this.productService.deleteProduct(product._id).subscribe();
+    this.productService.deleteProduct(product._id).subscribe(() => {
+      this.getProducts();
+    });
   }
 
   openImage(data: Product) {
