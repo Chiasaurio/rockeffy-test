@@ -4,6 +4,7 @@ import { ProductService } from 'src/app/core/services/product.service';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatDialog, MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { ProductEditComponent } from '../product-edit/product-edit.component';
 
 @Component({
   selector: 'app-products',
@@ -60,22 +61,23 @@ export class ProductsComponent implements OnInit {
   }
 
   openEditForm(data: Product) {
-    const dialogRef = this.dialog.open(DialogOverviewExampleDialog, {
-      height: '800px',
-      width: '800px',
-      data: data.imagen,
+    console.log('data', data);
+    const dialogRef = this.dialog.open(ProductEditComponent, {
+      data,
     });
 
-    dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
+    dialogRef.afterClosed().subscribe({
+      next: () => {
+          this.getProducts();
+      },
     });
   }
 }
 
 
 @Component({
-  selector: 'dialog-overview-example-dialog',
-  templateUrl: './dialog-overview-example-dialog.html',
+  selector: 'image-product-dialog',
+  templateUrl: './image-product-dialog.html',
 })
 export class DialogOverviewExampleDialog {
   constructor(

@@ -43,7 +43,9 @@ export class ProductService {
 
   /** PUT: update the hero on the server */
   updateProduct(product: Product): Observable<any> {
-    return this.http.put(this.productsUrl, product, this.httpOptions).pipe(
+    const url = `${this.productsUrl}/${product._id}`;
+    console.log(product);
+    return this.http.put(url, product, this.httpOptions).pipe(
       tap(_ => this.log(`updated product id=${product._id}`)),
       catchError(this.handleError<any>('updateProduct'))
     );

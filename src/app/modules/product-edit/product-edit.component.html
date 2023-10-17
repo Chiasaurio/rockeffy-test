@@ -1,0 +1,100 @@
+<div mat-dialog-title>
+  <h1>Producto form</h1>
+</div>
+<form [formGroup]="prodForm" (ngSubmit)="onFormSubmit()">
+  <div mat-dialog-content class="content">
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Nombre</mat-label>
+      <input
+        matInput
+        type="text"
+        placeholder="Nombre"
+        formControlName="nombre"
+      />
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Descripción</mat-label>
+      <input
+        matInput
+        type="text"
+        placeholder="Descripción"
+        formControlName="descripcion"
+      />
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Imagen (agregue la url)</mat-label>
+        <input
+          matInput
+          type="text"
+          placeholder="Imagen"
+          formControlName="imagen"
+        />
+      </mat-form-field>
+
+    <div class="row">
+      <mat-form-field appearance="outline" class="half-width">
+        <mat-label>Stock</mat-label>
+        <input
+          matInput
+          placeholder="Stock"
+          type="number"
+          formControlName="stock"
+        />
+      </mat-form-field>
+      <mat-form-field appearance="outline" class="half-width">
+        <mat-label>Sku</mat-label>
+        <input matInput placeholder="Sku" type="number" formControlName="sku" />
+        <!-- <mat-hint>In rupees</mat-hint> -->
+      </mat-form-field>
+    </div>
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Etiqueta</mat-label>
+      <mat-select formControlName="etiquetas" multiple>
+        <mat-option
+          *ngFor="let etiqueta of getEtiquetas()"
+          [value]="etiqueta"
+          >{{ etiqueta }}</mat-option
+        >
+      </mat-select>
+    </mat-form-field>
+    <div class="row" *ngIf="nuevaEtiqueta">
+      <mat-form-field appearance="outline" class="half-width">
+        <mat-label>Nueva etiqueta</mat-label>
+        <input
+          matInput
+          placeholder="Nueva etiqueta"
+          type="text "
+          formControlName="nuevaEtiquetaValue"
+        />
+      </mat-form-field>
+      <button
+        mat-raised-button
+        color="primary"
+        type="button"
+        (click)="addEtiqueta()"
+      >
+        Agregar
+      </button>
+    </div>
+    <div class="row">
+      <button
+        mat-button
+        color="primary"
+        type="button"
+        (click)="habilitarCampoEtiqueta()"
+      >
+        <mat-icon color="primary">add</mat-icon>Nueva etiqueta
+      </button>
+    </div>
+    <div mat-dialog-actions class="action">
+      <button mat-raised-button type="button" [mat-dialog-close]="false">
+        Cancel
+      </button>
+      <button mat-raised-button color="primary" type="submit">
+        {{ data ? "Update" : "Save" }}
+      </button>
+    </div>
+  </div>
+</form>

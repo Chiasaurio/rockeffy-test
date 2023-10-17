@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { FormsModule } from '@angular/forms'; 
+import { FormsModule,ReactiveFormsModule } from '@angular/forms'; 
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 
@@ -13,8 +13,8 @@ import { ProductSearchComponent } from './product-search/product-search.componen
 import { HttpInterceptorService } from '../core/services/http-interceptor.service';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { TopbarComponent } from './topbar/topbar.component';
-
 import { MaterialModule } from './material.module';
+import { ProductEditComponent } from './product-edit/product-edit.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -23,10 +23,12 @@ import { MaterialModule } from './material.module';
     MessagesComponent,
     DashboardComponent,
     TopbarComponent,
-    ProductSearchComponent
+    ProductSearchComponent,
+    ProductEditComponent
   ],
   imports: [
     FormsModule,
+    ReactiveFormsModule,
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
